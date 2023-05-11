@@ -216,7 +216,6 @@ For that add the below lines and restart the tomcat service:
 ln -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup
 
 ln -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown
-Output:
 
 
 Now we can access the Manager App on the tomcat server by providing a username: tomcat and password as s3cret
