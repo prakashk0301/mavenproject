@@ -206,7 +206,6 @@ Update the user’s information in the tomcat-users.xml file goto tomcat home di
  <user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
  <user username="deployer" password="deployer" roles="manager-script"/>
  <user username="tomcat" password="s3cret" roles="manager-gui"/>
-Output:
 
 
 Now we again to restart the services, to make things easier let’s create link files for tomcat startup.sh and shutdown.sh
