@@ -58,7 +58,7 @@ To use this repository, run the following command:
 sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-Output:
+
 
 
 Now let’s install epel packages for Amazon Linux AMI:
@@ -144,11 +144,6 @@ Now we need to update the paths where Java and Maven have been installed in the 
 
 
 After clicking on Install without restart, go again to manage Jenkins and select Global Tool configuration to set the paths for Java and Maven.
-
-For JAVA:
-
-
-For MAVEN:
 
 
 Click on save and hence we have successfully Integrated Java and Maven with Jenkins.
