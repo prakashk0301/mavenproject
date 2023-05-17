@@ -296,9 +296,6 @@ Now do some changes in your source code and without our intervention the Jenkins
 After making some changes in my code the build got triggered and checking the console output shows the build has been started by SCM and is successful rather than by the Admin (in an earlier case):
 
 
-If we access our Tomcat server from our browser we should see the new changes we did:
-
-
 Conclusion
 In this blog, we learned how to build a Java web app using GitHub as our SCM, Jenkins as our CI tool, Maven as our build tool, and finally deploying on a remote Tomcat Server.
 
