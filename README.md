@@ -67,9 +67,6 @@ Now let’s install epel packages for Amazon Linux AMI:
 After installing epel packages, let’s install java-openjdk11:
 
 
-Let’s check the version of Java now:
-
-
 Now let's install Jenkins with the below command as shown in the output:
 
 
