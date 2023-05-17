@@ -31,7 +31,7 @@
     <p>Already have an account? <a href="#">Sign in</a>.</p>
   </div>
 
-   <h1> Thanks for Checking my Blog, Wishing you Success!</h1>
+   <h1> Image has been pushed to DockerHub!</h1>
 
   
 </form>
