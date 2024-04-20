@@ -16,7 +16,16 @@ stages
    {
      withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
      sh 'mvn test'
-    }
+   }
+ }    
+ }  
+ stage('create artefact')
+ {
+    steps 
+   {
+     withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
+     sh 'mvn package'
+   }
  }    
  }  
 
