@@ -34,15 +34,9 @@ pipeline
       }
     }
    stage('deploy to tomcat-dev')
-{
- steps
-  {
-   sshagent (credentials: ['deploy-dev']) 
-    {
-      sh 'scp -o StrictHostKeyChecking=no **/*.war ec2-user@34.204.90.241:/usr/share/tomcat/webapps/
-    }
-  }
-}
+ {steps { sshagent(['tomcatdev']) 
+   { sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@18.206.38.153:/usr/share/tomcat/webapps/'}  
+ } }
    
    
 
