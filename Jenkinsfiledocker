@@ -21,4 +21,7 @@ stage ('build the docker image')
 {steps { sh 'docker build -t pkw0301/mavenproject:1.0 .'
          sh 'docker images'}}
 
+stage ('upload docker to docker registry')
+{steps { withDockerRegistry(credentialsId: 'DockerHubID', url: 'https://index.docker.io/v1/')
+{sh 'docker push pkw0301/mavenproject:1.0'}}}
 }}
