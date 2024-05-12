@@ -17,4 +17,7 @@ stages
     sh 'mvn package'
 } }}
 
+stage ('build the docker image')
+{steps { sh 'docker build -t pkw0301/mavenproject:1.0 .'}}
+
 }}
