@@ -1,78 +1,36 @@
 pipeline
 {
- agent any
- stages
+agent any
+stages
+{
+ stage('scm checkout-clone the code')
  {
-  stage('scm checkout')
-  {
-   steps
+    steps 
    {
-    git branch: 'master', url: 'https://github.com/Pranav-7670/mavenproject.git'
-   }   
-  } 
-  stage('execute unit test framework')
-  {
-   steps
+     git branch: 'master', url: 'https://github.com/Pranav-7670/mavenproject.git'
+   }    
+ } 
+ stage('execute unit test framework')
+ {
+    steps 
    {
-    withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)
-    {
-      sh 'mvn test'
-    }
-   }   
-  } 
-  stage('sonar analysis & generate artifacts')
- { 
-  steps 
-    {  
-     withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) 
-      { 
-        withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') 
-         {  
-           sh 'mvn package sonar:sonar '
-         } 
-      }
-      }
-    }
+     withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
+     sh 'mvn test'
+   }
+ }    
+ }  
+ stage('create artefact')
+ {
+    steps 
+   {
+     withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
+     sh 'mvn package'
+   }
+ }    
+ }  
 
-
-  
-   
- }
 
 }
-// pipeline
-// {
-// agent any
-// stages
-// {
-//  stage('scm checkout-clone the code')
-//  {
-//     steps 
-//    {
-//      git branch: 'master', url: 'https://github.com/Pranav-7670/mavenproject.git'
-//    }    
-//  } 
-//  stage('execute unit test framework')
-//  {
-//     steps 
-//    {
-//      withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
-//      sh 'mvn test'
-//    }
-//  }    
-//  }  
-//  stage('create artefact')
-//  {
-//     steps 
-//    {
-//      withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
-//      sh 'mvn package'
-//    }
-//  }    
-//  }  
-
-
-// }
 
  
-// }
+}
