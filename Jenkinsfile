@@ -49,7 +49,7 @@ stages
                         nexusArtifactUploader(
                             nexusVersion: nexus3,
                             protocol: http,
-                            nexusUrl: 3.90.70.179:8081,
+                            nexusUrl: "3.90.70.179:8081",
                             groupId: pom.groupId,
                             version: pom.version,
                             repository: maven_pranav,
