@@ -53,7 +53,7 @@ stages
                             groupId: pom.groupId,
                             version: pom.version,
                             repository: maven_pranav,
-                            credentialsId: maven_pranav,
+                            credentialsId: nexus_pranav,
                             artifacts: [
                                 // Artifact generated such as .jar, .ear and .war files.
                                 [artifactId: pom.artifactId,
