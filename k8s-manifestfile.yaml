@@ -22,7 +22,6 @@ spec:                                    #you can define the specification of De
 ---
 apiVersion: v1
 kind: Service
-namespace: default
 metadata:
   name: ekscicdservice            
   labels:                    #labels of service              
