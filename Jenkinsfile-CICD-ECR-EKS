@@ -26,7 +26,7 @@ stage ('upload docker to docker registry')
 {sh 'docker push 058264063726.dkr.ecr.ap-southeast-1.amazonaws.com/myecr:latest'}}}
 
 stage('deploy to eks cluster')
-{steps { withAWS(credentials: 'awssecret', endpointUrl: '172.31.17.106:443', region: 'ap-southeast-1') 
+{steps { withAWS(credentials: 'awssecret', region: 'ap-southeast-1') 
  { sh 'kubectl apply -f k8s-manifestfile.yaml'
    sh 'kubectl get pod'
    sh 'kubectl get deployment'
