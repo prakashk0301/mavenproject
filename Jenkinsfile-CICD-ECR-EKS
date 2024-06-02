@@ -27,7 +27,9 @@ stage ('upload docker to docker registry')
 
 stage('deploy to eks cluster')
 {steps { withAWS(credentials: 'awssecret', region: 'ap-southeast-1') 
- { sh 'kubectl apply -f k8s-manifestfile.yaml'
+ { sh 'aws sts get-caller-identity'
+   sh 'aws eks --region ap-southeast-1 update-kubeconfig --name my-eks'
+   sh 'kubectl apply -f k8s-manifestfile.yaml'
    sh 'kubectl get pod'
    sh 'kubectl get deployment'
    sh 'kubectl get svc'} 
