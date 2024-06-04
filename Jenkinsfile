@@ -24,9 +24,18 @@ stages
     steps 
    {
      withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
-     sh 'mvn package'
+     sh 'mvn clean package'
    }
  }    
+ }  
+ stage('deploy_to_tomcat')
+{
+    steps 
+   {
+     sshagent(['tomcat']) {
+     sh "scp  -o StrictHostKeyChecking=no /opt/maven_data/mavenproject/server/target/server.jar ec2-user@54.159.77.193:/opt/apache-tomcat-9.0.89/webapps" 
+      }     
+   }    
  }  
  
   // stage("publish to nexus") {
