@@ -33,7 +33,7 @@ stages
 //     steps 
 //    {
 //      sshagent(['tomcat']) {
-//      sh "scp  -o StrictHostKeyChecking=no /opt/maven_data/mavenproject/server/target/server.jar ec2-user@54.159.77.193:/opt/apache-tomcat-9.0.89/webapps" 
+//      sh "scp  -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@54.159.77.193:/opt/apache-tomcat-9.0.89/webapps" 
 //       }     
 //    }    
 //  }  
