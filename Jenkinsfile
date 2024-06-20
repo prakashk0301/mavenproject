@@ -28,15 +28,15 @@ stages
    }
  }    
  }  
- stage('deploy_to_tomcat')
-{
-    steps 
-   {
-     sshagent(['tomcat']) {
-     sh "scp  -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@54.159.77.193:/opt/apache-tomcat-9.0.89/webapps" 
-      }     
-   }    
- }  
+//  stage('deploy_to_tomcat')
+// {
+//     steps 
+//    {
+//      sshagent(['tomcat']) {
+//      sh "scp  -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@54.159.77.193:/opt/apache-tomcat-9.0.89/webapps" 
+//       }     
+//    }    
+//  }  
  
   // stage("publish to nexus") {
   //           steps {
