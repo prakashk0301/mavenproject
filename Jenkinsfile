@@ -28,6 +28,16 @@ stages
    }
  }    
  }  
+
+ stage('deploy_to_jboss')
+{
+    steps 
+   {
+     sshagent(['jboss']) {
+     sh "scp  -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@54.234.30.153:/opt/wildfly/standalone/deployments/" 
+      }
+   }    
+ } 
 //  stage('deploy_to_tomcat')
 // {
 //     steps 
