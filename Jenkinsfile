@@ -34,7 +34,7 @@ stages
     steps 
    {
      sshagent(['jboss']) {
-     sh "scp  -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@54.234.30.153:/opt/wildfly/standalone/deployments/" 
+     sh "scp  -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@54.205.175.62:/opt/wildfly/standalone/deployments/" 
       }
    }    
  } 
