@@ -31,11 +31,11 @@ stages
 
  stage ('deployment to Prod Manually')
   {input 'Do you approve deployment?'               
-     steps { sshagent(['deploy-to-tomcat']) 
+   { steps { sshagent(['deploy-to-tomcat']) 
      {
        sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.20.221:/usr/share/tomcat/webapps'
 
-   } }}
+   } }}}
 
 }
 }
