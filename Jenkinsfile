@@ -19,7 +19,7 @@ stages
 
    stage('code build')
  {steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
-    sh 'mvn package'
+    sh 'mvn install'
  } }}
 
  stage('deploy to tomcat server-Dev-Automated')
