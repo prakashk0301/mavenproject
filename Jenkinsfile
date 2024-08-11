@@ -30,8 +30,8 @@ stages
    } }}
 
  stage ('deployment to Prod Manually')
-   input 'Do you approve deployment?'               //cont delivery if you remove input parameter this will become cont deployment
-    { steps { sshagent(['deploy-to-tomcat']) 
+  {input 'Do you approve deployment?'               //cont delivery if you remove input parameter this will become cont deployment
+     steps { sshagent(['deploy-to-tomcat']) 
      {
        sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.20.221:/usr/share/tomcat/webapps'
 
