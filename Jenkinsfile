@@ -31,10 +31,10 @@ stages
 
  
   stage('deployment to Prod Manually') 
-   {
-     input 'Do you approve deployment?'              // Conditional delivery
-      steps { sshagent(['deploy-to-tomcat']) {
-           sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.20.221:/usr/share/tomcat/webapps'
+   { steps { sshagent(['deploy-to-tomcat']) 
+    {
+      input 'Do you approve deployment?'              // Conditional delivery
+      sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.20.221:/usr/share/tomcat/webapps'
             }
       }
     }
