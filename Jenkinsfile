@@ -22,10 +22,18 @@ stages
     sh 'mvn package'
  } }}
 
- stage('deploy to tomcat server')
+ stage('deploy to tomcat server-Dev-Automated')
   {steps { sshagent(['deploy-to-tomcat']) 
    {
     sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.20.221:/usr/share/tomcat/webapps'
+
+   } }}
+
+ stage ('deployment to Prod Manually')
+   input 'Do you approve deployment?'               //cont delivery if you remove input parameter this will become cont deployment
+    { steps { sshagent(['deploy-to-tomcat']) 
+     {
+       sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.20.221:/usr/share/tomcat/webapps'
 
    } }}
 
