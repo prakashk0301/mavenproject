@@ -12,6 +12,5 @@ stage('validate the job')
 } }}
 
 }
-
 }
 
