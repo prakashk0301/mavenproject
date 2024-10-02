@@ -1,4 +1,4 @@
-FROM tomcat
+FROM tomcat:10.1.15-jdk21
 LABEL app=ui
 RUN apt-get update -y 
 WORKDIR /usr/local/tomcat/webapps/
