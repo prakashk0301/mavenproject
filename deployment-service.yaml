@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-app
+  labels:
+    app: cicd
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cicd
+  template:
+    metadata:
+      labels:
+        app: cicd                        #this labels should match with service's Selector 
+    spec:
+      containers:
+      - name: myapp
+        image: 058264063726.dkr.ecr.ap-southeast-1.amazonaws.com/myimage:latest
+        ports:
+        - containerPort: 8080
+
+---   #to separate k8s resources
+apiVersion: v1
+kind: Service                                     #Kind
+metadata:
+  name: cicd-service                                # name of the service, try to add app name
+spec:
+  type: LoadBalancer                            #ClusterIP or NodePort or LoadBalancer
+  selector:
+    app: cicd                                  #this should match with pod labels
+  ports:
+    - protocol: TCP
+      port: 8080                         #this should match pod' port 
+      targetPort: 8080                    #this should match pod' port, optional
