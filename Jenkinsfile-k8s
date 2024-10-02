@@ -33,7 +33,9 @@ stage ('push docker image to ECR')
 stage('deploy-to-eks')
 { steps { withAWS(credentials: 'awscicd', region: 'ap-southeast-1') 
 {
-    sh 'kubectl apply -f deployment-service.yaml'
+sh 'aws sts get-caller-identity'
+sh 'aws eks --region ap-southeast-1 update-kubeconfig --name prod-eks' 
+sh 'kubectl apply -f deployment-service.yaml'
 } }}
 
 }
