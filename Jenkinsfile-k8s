@@ -21,7 +21,14 @@ stage('build the code')
     sh 'mvn clean -B -DskipTests package'
 } }}
 
+stage('docker image create')
+{steps { sh 'docker build -t 058264063726.dkr.ecr.ap-southeast-1.amazonaws.com/myimage:latest .' }}
 
+stage ('push docker image to ECR')
+{steps { withDockerRegistry(credentialsId: 'ecr:ap-southeast-1:awscicd', url: 'https://058264063726.dkr.ecr.ap-southeast-1.amazonaws.com') 
+  {
+    sh 'docker push 058264063726.dkr.ecr.ap-southeast-1.amazonaws.com/myimage:latest '
+  } }}
 
 }
 }
