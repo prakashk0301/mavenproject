@@ -30,5 +30,11 @@ stage ('push docker image to ECR')
     sh 'docker push 058264063726.dkr.ecr.ap-southeast-1.amazonaws.com/myimage:latest '
   } }}
 
+stage('deploy-to-eks')
+{ steps { withAWS(credentials: 'awscicd', region: 'ap-southeast-1') 
+{
+    sh 'kubectl apply -f deployment-service.yaml'
+} }}
+
 }
 }
