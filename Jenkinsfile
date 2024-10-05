@@ -10,19 +10,19 @@ stages
 
  stage('code compile')
  { agent { label 'JAVA' }
-steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
+steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true)  {
 	sh 'mvn compile'
  } }}
 
   stage('execute unit test framework')
  {agent { label 'JAVA' }
-   steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
+   steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true)  {
 	sh 'mvn test'
  } }}
 
    stage('code build')
  {agent { label 'JAVA' }
-   steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
+   steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true)  {
 	sh 'mvn package'
  } }}
 
