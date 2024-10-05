@@ -4,9 +4,8 @@ agent none
 stages
 {
  stage('scm checkout')
- { agent { label 'JAVA' }
+ { agent { label: 'JAVA' }
   steps { git branch: 'master', url: 'https://github.com/prakashk0301/mavenproject' }}
-
 
  stage('code compile')
  { agent { label 'JAVA' }
@@ -23,7 +22,7 @@ steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HO
    stage('code build')
  {agent { label 'JAVA' }
    steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true)  {
-	sh 'mvn package'
+	sh 'mvn clean -B -DskipTests package'
  } }}
 
 }
