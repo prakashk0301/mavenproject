@@ -1,31 +1,30 @@
 pipeline
-{agent any
+{
+agent none
 stages
 {
-stage('scm checkout')
-{ steps { 
-    { LABEL: JAVA { git branch: 'master', url: 'https://github.com/prakashk0301/mavenproject.git' }} }
+ stage('scm checkout')
+ { agent { label 'MAVEN' }
+  steps { git branch: 'master', url: 'https://github.com/prakashk0301/mavenproject' }}
 
 
-stage('compile the job')    //validate then compile
-{steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-    sh 'mvn compile'
-} }}
+ stage('code compile')
+ { agent { label 'MAVEN' }
+steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
+	sh 'mvn compile'
+ } }}
 
-stage('execute unit test framework')    
-{steps { LABEL: JAVA {withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-    sh 'mvn test'
-} }} }
+  stage('execute unit test framework')
+ {agent { label 'MAVEN' }
+   steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
+	sh 'mvn test'
+ } }}
 
-stage('build the code')    
-{steps { LABEL: JAVA { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-    sh 'mvn clean -B -DskipTests install'
-} }} } 
+   stage('code build')
+ {agent { label 'MAVEN' }
+   steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
+	sh 'mvn package'
+ } }}
 
-
-stage('deploy to tomcat')
-{ steps { LABEL: JAVA {  sshagent(['DEVCICD'])
-  { sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.27.20:/usr/share/tomcat/webapps'  } } }
-
-} }
+}
 }
