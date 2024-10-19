@@ -29,5 +29,12 @@ steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HO
  stage('build docker image')
  {steps { sh 'docker build -t pkw0301/devops:tomcat .' }}
 
+ stage('push docker image to dockerhub')
+ {steps { // This step should not normally be used in your script. Consult the inline help for details.
+withDockerRegistry(credentialsId: 'DockerHubCred', url: 'https://index.docker.io/v1/') 
+{
+    sh 'docker push pkw0301/devops:tomcat'
+} }}
+
 }
 }
