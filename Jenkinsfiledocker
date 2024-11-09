@@ -27,13 +27,13 @@ steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HO
 
 
  stage('build docker image')
- {steps { sh 'docker build -t pkw0301/devops:tomcat .' }}
+ {steps { sh 'docker build -t 058264063726.dkr.ecr.ap-southeast-1.amazonaws.com/devops/july:latest .' }}
 
- stage('push docker image to dockerhub')
- {steps { // This step should not normally be used in your script. Consult the inline help for details.
-withDockerRegistry(credentialsId: 'DockerHubCred', url: 'https://index.docker.io/v1/') 
+ stage('push docker image to AWS ECR')
+ {steps { 
+withDockerRegistry(credentialsId: 'ecr:ap-southeast-1:awscicd', url: 'https://058264063726.dkr.ecr.ap-southeast-1.amazonaws.com/devops/july') 
 {
-    sh 'docker push pkw0301/devops:tomcat'
+    sh 'docker push 058264063726.dkr.ecr.ap-southeast-1.amazonaws.com/devops/july:latest'
 } }}
 
 }
