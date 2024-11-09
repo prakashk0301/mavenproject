@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: helloword
-        image: 058264063726.dkr.ecr.ap-southeast-1.amazonaws.com/devops/july:latest
+        image: okteto/hello-world:pythont
         ports:
         - containerPort: 8080
 ---
