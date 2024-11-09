@@ -39,7 +39,7 @@ withDockerRegistry(credentialsId: 'ecr:ap-southeast-1:awscicd', url: 'https://05
  stage('deploy to k8s')
 {steps { withKubeConfig(caCertificate: '', clusterName: 'my-eks', contextName: 'arn:aws:eks:ap-southeast-1:058264063726:cluster/my-eks', credentialsId: 'ekscred', namespace: '', restrictKubeConfigAccess: false, serverUrl: 'https://37ECECD4BC5BDCAB891B5B5363227D4D.gr7.ap-southeast-1.eks.amazonaws.com') {
     sh 'kubectl apply -f myapp-kubernetes.yaml'
-} }
+} } }
 
 
 
