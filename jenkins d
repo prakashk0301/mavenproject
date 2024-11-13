@@ -1,0 +1,12 @@
+pieline
+{
+    agent any
+    stages
+    {
+        stage('scm checkout')
+       {
+        steps
+        { git branch: 'abc', url: 'https://github.com/Devanshbirthare/mavenproject.git'}
+       }
+    }
+}
