@@ -25,7 +25,7 @@ stage('execute unit test framework')
 stage('generate artifact or code build')
 {steps {withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) 
 {
-    sh 'mvn package -DskipTests -X'    //skip test, -X for debug or detailed logs
+    sh 'mvn package -DskipTests'    //skip test, -X for debug or detailed logs
 }} }
 
 }
