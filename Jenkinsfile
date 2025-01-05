@@ -17,7 +17,7 @@ stage('execute unit test framework')
 stage('generate artifact or code build')
 {steps {withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) 
 {
-    sh 'mvn verify -DskipTests'    //skip test, it also generates artifact
+    sh 'mvn clean verify -DskipTests'    //skip test, it also generates artifact, clean the workspace folder
 }} }
 
 }
