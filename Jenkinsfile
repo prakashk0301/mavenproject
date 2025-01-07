@@ -27,6 +27,12 @@ stage('deploy to tomcat dev')
     sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.27.88:/usr/share/tomcat/webapps'
   } }}
 
+
+stage('deploy to tomcat qa')
+{steps {   sh 'echo "deploy to tomcat qa" ' }}
+    
+   
+
 }
 
 }
