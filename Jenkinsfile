@@ -21,17 +21,24 @@ stage('generate artifact and store in local maven repository')
 }} }
 
 
-stage('deploy to tomcat dev')
-{steps { sshagent (credentials: ['CICD-deploy']) 
+stage('deploy to multiple tomcat dev')
+{parallel
   {
-    sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.27.88:/usr/share/tomcat/webapps'
-  } }}
 
 
-stage('deploy to tomcat qa')
-{steps {   sh 'echo "deploy to tomcat qa" ' }}
+  stage('deploy to tomcat dev1')    //5 min
+   {steps { sshagent (credentials: ['CICD-deploy']) 
+     {
+      sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.27.88:/usr/share/tomcat/webapps'
+    } }}
+
+
+    stage('deploy to tomcat dev2')     //5 min
+    {steps 
+      {   sh 'echo "deploy to dev2" ' }}
     
-   
+  }
+ }   
 
 }
 
