@@ -5,7 +5,7 @@ stages
 {
 
 stage ('scm checkout')
-{agent { label 'Maven' }
+{agent { label 'DOCKER' }
 
 steps {  git branch: 'master', url: 'https://github.com/prakashk0301/mavenproject'   }}
 
