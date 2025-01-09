@@ -13,7 +13,7 @@ steps {  git branch: 'master', url: 'https://github.com/prakashk0301/mavenprojec
 stage('execute unit test framework')
 
 
- {agent { label 'MAVEN' }  //run on maven agent
+ {agent { label 'Maven' }  //run on maven agent
 
 
 steps {withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) 
