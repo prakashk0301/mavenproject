@@ -22,7 +22,7 @@ stage('generate artifact and sonar analysis')
 
 
 { steps {withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) 
-  { withSonarQubeEnv(credentialsId: 'sonar')
+  { withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar')
    {
     sh 'mvn clean install -DskipTests sonar:sonar'    
    }}  } }
