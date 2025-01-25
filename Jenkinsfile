@@ -22,6 +22,13 @@ stage('generate artifact')
      sh 'mvn clean install -DskipTests'    
    }} }
 
+stage('docker build')
+  {steps { sh 'docker build -t pkw0301/genai:250125 .' }}
+
+
+stage('docker push')
+  {steps { withDockerRegistry(credentialsId: 'dockercred', url: 'https://index.docker.io/v1/')
+   { sh 'docker push pkw0301/genai:250125' } }}
 
  
 
