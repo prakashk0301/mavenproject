@@ -19,5 +19,4 @@ pipeline
          { sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.83.200:/opt/apache-tomcat-10.1.44/webapps'} }
 
     }
-
 }}
