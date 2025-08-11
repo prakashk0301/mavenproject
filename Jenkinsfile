@@ -15,9 +15,8 @@ pipeline
         {steps { sh 'mvn package' }}
 
         stage('deploy to tomcat')
-        {steps { "sshagent(['cicd']) 
-        { sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.83.200:/opt/apache-tomcat-10.1.44/webapps"
-}" }}
+        {steps { sshagent(['cicd']) 
+         { sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.83.200:/opt/apache-tomcat-10.1.44/webapps'} }
 
     }
 
