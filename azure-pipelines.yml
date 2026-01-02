@@ -5,7 +5,7 @@ trigger:
 pool:
   name: Default
   demands:
-    - Agent.Name -equals local-agent
+    - Agent.Name -equals cloud-agent
 
 steps:
 - checkout: self
