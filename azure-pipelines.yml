@@ -1,0 +1,41 @@
+trigger:
+- master
+- azure-pipelines
+
+pool:
+  name: Default
+  demands:
+    - Agent.Name -equals cloud-agent
+
+steps:
+- checkout: self
+
+- task: Maven@3
+  displayName: 'Maven Clean'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    goals: 'clean'
+
+- task: Maven@3
+  displayName: 'Maven Install (Skip Tests)'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    goals: 'install -DskipTests'
+
+- task: Maven@3
+  displayName: 'Maven Test'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'test'
+
+- task: Maven@3
+  displayName: 'Maven Package'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    goals: 'package'
