@@ -7,33 +7,53 @@ pool:
   demands:
     - Agent.Name -equals azure-devops-agent
 
-steps:
-- checkout: self
+stages:
+- stage: build
+  displayName: "Build the code"
+  jobs:
+  - job: BuildJob                    #anyname to this job
+    steps:
+    - checkout: self                 #default jobs name and optionals, download the code
 
-- task: Maven@3
-  displayName: 'Maven Clean'
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    goals: 'clean'
+    - task: Maven@3
+      displayName: 'Maven Clean'
+      inputs:
+        mavenPomFile: 'pom.xml'
+        mavenOptions: '-Xmx3072m'
+        goals: 'clean'
 
-- task: Maven@3
-  displayName: 'Maven Install (Skip Tests)'
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    goals: 'install -DskipTests'   # Skip tests during install
+    - task: Maven@3
+      displayName: 'Maven Install (Skip Tests)'
+      inputs:
+        mavenPomFile: 'pom.xml'
+        mavenOptions: '-Xmx3072m'
+        goals: 'install -DskipTests'   # Skip tests during install
 
-- task: Maven@3
-  displayName: 'Maven Test'
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    goals: 'test'
+- stage: Test
+  displayName: "Test the code"
+  jobs:
+  - job: Testjob
+    steps:
+    - checkout: self
 
-- task: Maven@3
-  displayName: 'Build and generate Maven artifacts'
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    goals: 'package'
+    - task: Maven@3
+      displayName: 'Maven Test'
+      inputs:
+        mavenPomFile: 'pom.xml'
+        mavenOptions: '-Xmx3072m'
+        goals: 'test'
+
+
+- stage: Package
+  displayName: "Package the code & generate artifact"
+  jobs:
+  - job: Packagejob
+    steps:
+    - checkout: self
+
+    - task: Maven@3
+      displayName: 'Package the code'
+      inputs:
+        mavenPomFile: 'pom.xml'
+        mavenOptions: '-Xmx3072m'
+        goals: 'package'
