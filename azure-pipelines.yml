@@ -3,9 +3,9 @@ trigger:
 - azure-pipelines
 
 pool:
-  name: Default
+  name: my-agent
   demands:
-    - Agent.Name -equals cloud-agent
+    - Agent.Name -equals azure-devops-agent
 
 steps:
 - checkout: self
@@ -22,19 +22,17 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
-    goals: 'install -DskipTests'
+    goals: 'install -DskipTests'   # Skip tests during install
 
 - task: Maven@3
   displayName: 'Maven Test'
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'test'
 
 - task: Maven@3
-  displayName: 'Maven Package'
+  displayName: 'Build and generate Maven artifacts'
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
