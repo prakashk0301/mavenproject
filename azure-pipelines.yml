@@ -47,12 +47,10 @@ stages:
 - stage: Package
   displayName: "Package the code & generate artifact"
   jobs:
-  - job: Packagejob
+  - job: Packagejob      #this is job name
     steps:
-    - checkout: self
-
     - task: Maven@3
-      displayName: 'Package the code'
+      displayName: 'Package the code'    #task display name
       inputs:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
