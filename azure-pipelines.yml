@@ -41,7 +41,7 @@ stages:
       inputs:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
-        goals: 'Test'                     #not a valid maven goal, should be 'test'
+        goals: 'test'                     #not a valid maven goal, should be 'test'
 
 
 - stage: Package
