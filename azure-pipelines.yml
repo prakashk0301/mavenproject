@@ -75,6 +75,6 @@ stages:
     - task: AzureWebApp@1
       displayName: 'Deploy WAR to Azure App Service'
       inputs:
-        azureSubscription: '<ServiceConnectionName>'   # replace with your service connection name
+        azureSubscription: 'azure-devops-test1'   # replace with your service connection name
         appName: 'azurerm'                             # App Service name from your JSON
         package: '$(Pipeline.Workspace)/drop/webapp.war'
