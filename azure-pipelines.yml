@@ -8,12 +8,12 @@ pool:
     - Agent.Name -equals azure-devops-agent
 
 stages:
-- stage: build
+- stage: Build
   displayName: "Build the code"
   jobs:
-  - job: BuildJob                    #anyname to this job
+  - job: BuildJob
     steps:
-    - checkout: self                 #default jobs name and optionals, download the code
+    - checkout: self
 
     - task: Maven@3
       displayName: 'Maven Clean'
@@ -27,12 +27,12 @@ stages:
       inputs:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
-        goals: 'install -DskipTests'   # Skip tests during install
+        goals: 'install -DskipTests'
 
 - stage: Test
   displayName: "Test the code"
   jobs:
-  - job: Testjob
+  - job: TestJob
     steps:
     - checkout: self
 
@@ -41,17 +41,40 @@ stages:
       inputs:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
-        goals: 'test'                     #not a valid maven goal, should be 'test'
-
+        goals: 'test'
 
 - stage: Package
   displayName: "Package the code & generate artifact"
   jobs:
-  - job: Packagejob      #this is job name
+  - job: PackageJob
     steps:
     - task: Maven@3
-      displayName: 'Package the code'    #task display name
+      displayName: 'Package the code'
       inputs:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         goals: 'package'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/webapp/target/webapp.war'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+
+- stage: Deploy
+  displayName: "Deploy to Azure App Service"
+  dependsOn: Package
+  jobs:
+  - job: DeployJob
+    steps:
+    - checkout: none
+
+    - download: current
+      artifact: drop
+
+    - task: AzureWebApp@1
+      displayName: 'Deploy WAR to Azure App Service'
+      inputs:
+        azureSubscription: '<ServiceConnectionName>'   # replace with your service connection name
+        appName: 'azurerm'                             # App Service name from your JSON
+        package: '$(Pipeline.Workspace)/drop/webapp.war'
