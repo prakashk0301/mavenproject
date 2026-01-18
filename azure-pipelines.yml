@@ -69,10 +69,18 @@ stages:
   - job: DeployJob
     displayName: 'Deploy Job'
     steps:
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download Artifact from drop'
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
     - task: AzureWebApp@1
       displayName: 'Deploy to Dev Azure Web App'
       inputs:
         azureSubscription: 'azure-devops-dev'
         appType: 'webApp'
         appName: 'maven-webapp'
-        package: '$(System.DefaultWorkingDirectory)/webapp/target/webapp.war'
+        package: '$(System.ArtifactsDirectory)/drop/webapp.war'
