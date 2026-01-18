@@ -41,8 +41,7 @@ stages:
       inputs:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
-        goals: 'test'                     #not a valid maven goal, should be 'test'
-
+        goals: 'test'
 
 - stage: Package
   displayName: "Package the code & generate artifact"
@@ -67,12 +66,13 @@ stages:
   displayName: "Deploy the artifact to azure app service"
   dependsOn: Package     #this stage depends on package stage, so it will run after package stage
   jobs:
-  - deployment: DeployJob
+  - job: DeployJob
+    displayName: 'Deploy Job'
     steps:
     - task: AzureWebApp@1
       displayName: 'Deploy to Dev Azure Web App'
       inputs:
-        azureSubscription: 'azure-devops-dev'            #we can use variable concept here for service connection
-        appType: 'webApp'                                 #type of the app service
-        appName: 'maven-webapp'                           #name of the app service
-        package: '$(System.DefaultWorkingDirectory)/webapp/target/webapp.war'  #path to the artifact to deploy
+        azureSubscription: 'azure-devops-dev'
+        appType: 'webApp'
+        appName: 'maven-webapp'
+        package: '$(System.DefaultWorkingDirectory)/webapp/target/webapp.war'
