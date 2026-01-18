@@ -55,3 +55,10 @@ stages:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         goals: 'package'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact to drop location'
+      inputs:
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/webapp/target/webapp.war'  #path to publish artifact
+        ArtifactName: 'drop'                                      #artifact name
+        publishLocation: 'Container'
