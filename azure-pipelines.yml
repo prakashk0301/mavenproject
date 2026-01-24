@@ -15,11 +15,6 @@ stages:
     steps:
     - checkout: self
 
-    - task: MavenAuthenticate@0
-      displayName: 'Authenticate to Azure Artifacts'
-      inputs:
-        artifactsFeeds: 'maven'
-
     - task: Maven@3
       displayName: 'Maven Clean'
       inputs:
@@ -41,11 +36,6 @@ stages:
     steps:
     - checkout: self
 
-    - task: MavenAuthenticate@0
-      displayName: 'Authenticate to Azure Artifacts'
-      inputs:
-        artifactsFeeds: 'maven'
-
     - task: Maven@3
       displayName: 'Maven Test'
       inputs:
@@ -59,11 +49,6 @@ stages:
   - job: PackageJob
     steps:
     - checkout: self
-
-    - task: MavenAuthenticate@0
-      displayName: 'Authenticate to Azure Artifacts'
-      inputs:
-        artifactsFeeds: 'maven'
 
     - task: Maven@3
       displayName: 'Package the code'
