@@ -2,9 +2,6 @@ trigger:
 - master
 - azure-pipelines
 
-variables:
-  PATtoken: $(PATtoken)
-
 pool:
   name: my-agent
   demands:
@@ -18,14 +15,17 @@ stages:
     steps:
     - checkout: self
 
+    - task: MavenAuthenticate@0
+      displayName: 'Authenticate to Azure Artifacts'
+      inputs:
+        artifactsFeeds: 'maven'
+
     - task: Maven@3
       displayName: 'Maven Clean'
       inputs:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         goals: 'clean'
-      env:
-        PATtoken: $(PATtoken)
 
     - task: Maven@3
       displayName: 'Maven Install (Skip Tests)'
@@ -33,8 +33,6 @@ stages:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         goals: 'install -DskipTests'
-      env:
-        PATtoken: $(PATtoken)
 
 - stage: Test
   displayName: "Test the code"
@@ -43,28 +41,36 @@ stages:
     steps:
     - checkout: self
 
+    - task: MavenAuthenticate@0
+      displayName: 'Authenticate to Azure Artifacts'
+      inputs:
+        artifactsFeeds: 'maven'
+
     - task: Maven@3
       displayName: 'Maven Test'
       inputs:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         goals: 'test'
-      env:
-        PATtoken: $(PATtoken)
 
 - stage: Package
   displayName: "Package the code & generate artifact"
   jobs:
   - job: PackageJob
     steps:
+    - checkout: self
+
+    - task: MavenAuthenticate@0
+      displayName: 'Authenticate to Azure Artifacts'
+      inputs:
+        artifactsFeeds: 'maven'
+
     - task: Maven@3
       displayName: 'Package the code'
       inputs:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         goals: 'package'
-      env:
-        PATtoken: $(PATtoken)
 
     - task: PublishBuildArtifacts@1
       inputs:
