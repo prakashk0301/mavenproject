@@ -21,7 +21,24 @@
     <module>webapp</module>
   </modules>
 
+  <repositories>
+    <repository>
+      <id>maven</id>
+      <url>https://pkgs.dev.azure.com/ethans-2/_packaging/maven/maven/v1</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <distributionManagement>
+    <repository>
+      <id>maven</id>
+      <url>https://pkgs.dev.azure.com/ethans-2/_packaging/maven/maven/v1</url>
+    </repository>
     <site>
       <id>site-server</id>
       <name>Test Project Site</name>
