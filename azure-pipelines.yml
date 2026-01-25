@@ -1,6 +1,6 @@
 trigger:
 - master
-- azure-pipelines
+- azurefeed
 
 pool:
   name: my-agent
@@ -9,6 +9,8 @@ pool:
 
 variables:
   azureSubscription: 'azure-devops-dev'
+  MAVEN_USERNAME: 'ethans-2'
+  MAVEN_PASSWORD: $(MAVEN_PASSWORD)
 
 stages:
 - stage: build
@@ -24,6 +26,10 @@ stages:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         goals: 'clean'
+        options: '--settings .m2/settings.xml'
+      env:
+        MAVEN_USERNAME: $(MAVEN_USERNAME)
+        MAVEN_PASSWORD: $(MAVEN_PASSWORD)
 
     - task: Maven@3
       displayName: 'Maven Install (Skip Tests)'
@@ -31,6 +37,10 @@ stages:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         goals: 'install -DskipTests'   # Skip tests during install
+        options: '--settings .m2/settings.xml'
+      env:
+        MAVEN_USERNAME: $(MAVEN_USERNAME)
+        MAVEN_PASSWORD: $(MAVEN_PASSWORD)
 
 - stage: Test
   displayName: "Test the code"
@@ -45,6 +55,10 @@ stages:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         goals: 'test'
+        options: '--settings .m2/settings.xml'
+      env:
+        MAVEN_USERNAME: $(MAVEN_USERNAME)
+        MAVEN_PASSWORD: $(MAVEN_PASSWORD)
 
 - stage: Package
   displayName: "Package the code & generate artifact"
@@ -57,6 +71,10 @@ stages:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         goals: 'package'
+        options: '--settings .m2/settings.xml'
+      env:
+        MAVEN_USERNAME: $(MAVEN_USERNAME)
+        MAVEN_PASSWORD: $(MAVEN_PASSWORD)
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact to drop location'
@@ -80,11 +98,11 @@ stages:
         artifactName: '$(artname)'    #actual value is drop
         downloadPath: '$(System.ArtifactsDirectory)'
 
-    - task: AzureWebApp@1
-      displayName: 'Deploy to Dev Azure Web App'
-      inputs:
-        azureSubscription: 'azure-devops-dev'
-        appType: 'webAppLinux'
-        appName: 'newappmaven'
-        package: '$(System.ArtifactsDirectory)/drop/webapp.war'
-        runtimeStack: 'JAVA|11-java11'
+#    - task: AzureWebApp@1
+#      displayName: 'Deploy to Dev Azure Web App'
+#      inputs:
+#        azureSubscription: 'azure-devops-dev'
+#        appType: 'webAppLinux'
+#        appName: 'newappmaven'
+#        package: '$(System.ArtifactsDirectory)/drop/webapp.war'
+#        runtimeStack: 'JAVA|11-java11'
