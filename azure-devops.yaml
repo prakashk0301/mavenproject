@@ -1,0 +1,12 @@
+trigger: - main
+pool:
+  vmImage: 'ubuntu-latest' # Uses a Microsoft-hosted agent
+variables:
+  imageName: 'my-docker-image'
+steps:
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: $(imageName)
+    command: build
+    Dockerfile: Dockerfile
