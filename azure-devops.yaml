@@ -1,4 +1,5 @@
-trigger: - main
+trigger: 
+  - ci-cd-docker
 pool:
   vmImage: 'ubuntu-latest' # Uses a Microsoft-hosted agent
 variables:
